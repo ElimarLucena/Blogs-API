@@ -6,6 +6,13 @@ const UserSchema = (sequelize, DataTypes) => {
     image: DataTypes.STRING
   }, { timestamps: false });
 
+  UserTable.associate = (models) => {
+    UserTable.hasMany(models.BlogPost, {
+      foreignKey: 'userId',
+      as: 'blogPosts'
+    });
+  };
+
   return UserTable;
 };
 
