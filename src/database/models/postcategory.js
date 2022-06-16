@@ -1,24 +1,32 @@
-'use strict';
-const {
-  Model
-} = require('sequelize');
-module.exports = (sequelize, DataTypes) => {
-  class PostCategory extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
-    static associate(models) {
-      // define association here
+const PostCategorySchema = (sequelize, DataTypes) => {
+  const PostCategoryTable = sequelize.define("PostCategory", {
+    postId: { 
+      type: DataTypes.INTEGER,
+      primaryKey: true
+    },
+    categoryId:  { 
+      type: DataTypes.INTEGER,
+      primaryKey: true
     }
+  }, { timestamps: false });
+
+  PostCategoryTable.associate = (models) => {
+    models.BlogPost.belongsToMany(models.Category, {
+      as: 'categories',
+      through: PostCategoryTable,
+      foreignKey: 'id',
+      otherKey: 'id'
+    });
+
+    models.Category.belongsToMany(models.BlogPost, {
+      as: 'posts',
+      through: PostCategoryTable,
+      foreignKey: 'id',
+      otherKey: 'id'
+    });
   };
-  PostCategory.init({
-    postId: DataTypes.INTEGER,
-    categoryId: DataTypes.INTEGER
-  }, {
-    sequelize,
-    modelName: 'PostCategory',
-  });
-  return PostCategory;
+
+  return PostCategoryTable;
 };
+
+module.exports = PostCategorySchema;
