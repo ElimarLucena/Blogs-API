@@ -3,7 +3,7 @@ const services = require('../services/loginService');
 const authenticate = async (req, res) => {
   const token = await services.authenticate(req.body);
 
-  if (token) {
+  if (!token) {
     return res.status(400).json({ message: 'Invalid fields' });
   }
 
