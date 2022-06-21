@@ -18,6 +18,17 @@ const createCategory = async (payload) => {
   }
 };
 
+const getAllCategories = async () => {
+  try {
+    const users = await Category.findAll();
+
+    return users;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createCategory,
+  getAllCategories,
 };
