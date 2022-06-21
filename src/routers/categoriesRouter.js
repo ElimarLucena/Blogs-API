@@ -10,4 +10,6 @@ router.use(express.json());
 
 router.post('/', authenticateToken, controllers.createCategory);
 
+router.get('/', authenticateToken, controllers.getAllCategories);
+
 module.exports = router;
