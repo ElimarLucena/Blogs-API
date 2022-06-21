@@ -12,6 +12,17 @@ const createUser = async (req, res) => {
   return res.status(201).json(token);
 };
 
+const getAllUsers = async (_req, res) => {
+  try {
+    const users = await services.getAllUsers();
+
+    return res.status(200).json(users);
+  } catch (e) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   createUser,
+  getAllUsers,
 };
