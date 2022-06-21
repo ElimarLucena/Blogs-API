@@ -24,7 +24,9 @@ const createUser = async (payload) => {
 
 const getAllUsers = async () => {
   try {
-    const users = await User.findAll();
+    const users = await User.findAll({ 
+      attributes: ['id', 'displayName', 'email', 'image'],
+    });
 
     return users;
   } catch (error) {
