@@ -22,6 +22,17 @@ const createUser = async (payload) => {
   return { token };
 };
 
+const getAllUsers = async () => {
+  try {
+    const users = await User.findAll();
+
+    return users;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createUser,
+  getAllUsers,
 };
