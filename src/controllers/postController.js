@@ -1,8 +1,10 @@
 const services = require('../services/postService');
 
 const createBlogPost = async (req, res) => {
+  const { id } = req.user.data;
+
   try {
-    const post = await services.createBlogPost(req.body);
+    const post = await services.createBlogPost(req.body, id);
 
     if (!post) {
       return res.status(400).json({ message: '"categoryIds" not found' });
