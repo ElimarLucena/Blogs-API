@@ -5,7 +5,7 @@ const createBlogPost = async (req, res) => {
     const post = await services.createBlogPost(req.body);
 
     if (!post) {
-      return res.status(409).json({ message: '"categoryIds" not found' });
+      return res.status(400).json({ message: '"categoryIds" not found' });
     }
 
     return res.status(201).json(post);
