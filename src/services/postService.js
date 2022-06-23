@@ -46,7 +46,30 @@ const getAllBlogPosts = async () => {
   }
 };
 
+const getBlogPostsById = async (id) => {
+  const verifyIdExixt = await BlogPost.findByPk(id);
+
+  if (!verifyIdExixt) return false;
+
+  try {
+    const posts = await BlogPost.findOne({
+      where: { id },
+      include: [{
+        model: User, as: 'user', attributes: { exclude: ['password'] },
+      },
+      {
+        model: Category, as: 'categories', through: { attributes: [] },
+      }],
+    });
+
+    return posts;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
+  getBlogPostsById,
 };
