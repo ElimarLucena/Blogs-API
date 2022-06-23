@@ -27,10 +27,14 @@ const getAllBlogPosts = async (_req, res) => {
 };
 
 const getBlogPostsById = async (req, res) => {
-  const { id } = req.user.data;
+  const { id } = req.params;
 
   try {
     const posts = await services.getBlogPostsById(id);
+
+    if (!posts) {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
 
     return res.status(200).json(posts);
   } catch (e) {
