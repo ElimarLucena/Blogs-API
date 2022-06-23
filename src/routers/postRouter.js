@@ -15,4 +15,6 @@ router.post('/',
   postCreationValidation, 
   controller.createBlogPost);
 
+router.get('/', authenticateToken, controller.getAllBlogPosts);
+
 module.exports = router;
