@@ -16,6 +16,17 @@ const createBlogPost = async (req, res) => {
   }
 };
 
+const getAllBlogPosts = async (_req, res) => {
+  try {
+    const posts = await services.getAllBlogPosts();
+
+    return res.status(200).json(posts);
+  } catch (e) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   createBlogPost,
+  getAllBlogPosts,
 };
