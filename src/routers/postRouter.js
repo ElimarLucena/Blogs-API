@@ -19,4 +19,6 @@ router.get('/', authenticateToken, controller.getAllBlogPosts);
 
 router.get('/:id', authenticateToken, controller.getBlogPostsById);
 
+router.put('/:id', authenticateToken, controller.updatePost);
+
 module.exports = router;
