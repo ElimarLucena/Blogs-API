@@ -11,6 +11,20 @@ const postCreationValidation = (req, _res, next) => {
   next();
 };
 
+const postUpdateValidation = (req, _res, next) => {
+  const { title, content } = req.body;
+
+  if (!title || !content) {
+    next({
+      statusCode: 400,
+      message: 'Some required fields are missing',
+    });
+  }
+
+  next();
+};
+
 module.exports = {
   postCreationValidation,
+  postUpdateValidation,
 };
