@@ -42,8 +42,25 @@ const getBlogPostsById = async (req, res) => {
   }
 };
 
+const updatePost = async (req, res) => {
+  const { id } = req.user.data;
+
+  try {
+    const posts = await services.updatePost(id, req.body);
+
+    if (!posts) {
+      return res.status(401).json({ message: 'Unauthorized user' });
+    }
+
+    return res.status(200).json(posts);
+  } catch (e) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
   getBlogPostsById,
+  updatePost,
 };
