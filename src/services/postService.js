@@ -68,8 +68,33 @@ const getBlogPostsById = async (id) => {
   }
 };
 
+const updatePost = async (id, payload) => {
+  const { title, content } = payload;
+
+  try {
+    const [post] = await BlogPost.update({ title, content }, { where: { userId: id } });
+
+    if (!post) return false;
+
+    const updatedPost = await BlogPost.findOne({
+      where: { userId: id },
+      include: [{
+        model: User, as: 'user', attributes: { exclude: ['password'] },
+      },
+      {
+        model: Category, as: 'categories', through: { attributes: [] },
+      }],
+    });
+
+    return updatedPost;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
   getBlogPostsById,
+  updatePost,
 };
