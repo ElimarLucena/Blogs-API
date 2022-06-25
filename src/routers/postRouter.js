@@ -24,4 +24,6 @@ router.put('/:id',
   postUpdateValidation, 
   controller.updatePost);
 
+router.delete('/:id', authenticateToken, controller.deletePost);
+
 module.exports = router;
