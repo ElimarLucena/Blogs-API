@@ -58,9 +58,30 @@ const updatePost = async (req, res) => {
   }
 };
 
+const deletePost = async (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const post = await services.deletePost(id);
+
+    if (!post) {
+      return res.status(401).json({ message: 'Unauthorized user' });
+    }
+
+    if (post === 'Post does not exist') {
+      return res.status(404).json({ message: 'Post does not exist' });
+    }
+
+    return res.status(204).json();
+  } catch (e) {
+    return res.status(500).json({ message: 'Internal server error' });
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
   getBlogPostsById,
   updatePost,
+  deletePost,
 };
