@@ -1,5 +1,7 @@
 const services = require('../services/postService');
 
+const InternalServerError = { message: 'Internal server error' };
+
 const createBlogPost = async (req, res) => {
   const { id } = req.user.data;
 
@@ -12,7 +14,7 @@ const createBlogPost = async (req, res) => {
 
     return res.status(201).json(post);
   } catch (e) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json(InternalServerError);
   }
 };
 
@@ -22,7 +24,7 @@ const getAllBlogPosts = async (_req, res) => {
 
     return res.status(200).json(posts);
   } catch (e) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json(InternalServerError);
   }
 };
 
@@ -38,7 +40,7 @@ const getBlogPostsById = async (req, res) => {
 
     return res.status(200).json(posts);
   } catch (e) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json(InternalServerError);
   }
 };
 
@@ -54,7 +56,7 @@ const updatePost = async (req, res) => {
 
     return res.status(200).json(posts);
   } catch (e) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json(InternalServerError);
   }
 };
 
@@ -74,7 +76,7 @@ const deletePost = async (req, res) => {
 
     return res.status(204).json();
   } catch (e) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json(InternalServerError);
   }
 };
 
