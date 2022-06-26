@@ -1,5 +1,7 @@
 const services = require('../services/userService');
 
+const internalServerError = { message: 'Internal server error' };
+
 const createUser = async (req, res) => {
   const user = await services.createUser(req.body);
 
@@ -18,7 +20,7 @@ const getAllUsers = async (_req, res) => {
 
     return res.status(200).json(users);
   } catch (e) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json(internalServerError);
   }
 };
 
@@ -32,7 +34,7 @@ const getUserById = async (req, res) => {
 
     return res.status(200).json(user);
   } catch (e) {
-    return res.status(500).json({ message: 'Internal server error' });
+    return res.status(500).json(internalServerError);
   }
 };
 
@@ -40,4 +42,5 @@ module.exports = {
   createUser,
   getAllUsers,
   getUserById,
+  deleteUser,
 };
