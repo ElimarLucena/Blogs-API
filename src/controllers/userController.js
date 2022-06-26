@@ -38,6 +38,17 @@ const getUserById = async (req, res) => {
   }
 };
 
+const deleteUser = async (req, res) => {
+  const { id } = req.user.data;
+  try {
+    await services.deleteUser(id);
+
+    return res.status(204).json();
+  } catch (e) {
+    return res.status(500).json(internalServerError);
+  }
+};
+
 module.exports = {
   createUser,
   getAllUsers,
