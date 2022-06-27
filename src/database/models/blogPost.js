@@ -3,12 +3,19 @@ const BlogPostSchema = (sequelize, DataTypes) => {
     id: {
       type: DataTypes.INTEGER,
       primaryKey: true,
+      autoIncrement: true,
     },
     title: DataTypes.STRING,
     content: DataTypes.STRING,
     userId: DataTypes.INTEGER,
-    published: DataTypes.DATE,
-    updated: DataTypes.DATE
+    published:{
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+    },
+    updated: {
+      type: DataTypes.DATE,
+      defaultValue: new Date(),
+    }
   }, { timestamps: false });
 
   BlogPostTable.associate = (models) => {
