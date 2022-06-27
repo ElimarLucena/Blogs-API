@@ -26,4 +26,6 @@ router.put('/:id',
 
 router.delete('/:id', authenticateToken, controller.deletePost);
 
+router.get('/search', authenticateToken, controller.searchPosts);
+
 module.exports = router;
