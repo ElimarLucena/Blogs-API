@@ -10,6 +10,8 @@ const router = express.Router();
 
 router.use(express.json());
 
+router.get('/search', authenticateToken, controller.searchPosts);
+
 router.post('/', 
   authenticateToken, 
   postCreationValidation, 
@@ -25,7 +27,5 @@ router.put('/:id',
   controller.updatePost);
 
 router.delete('/:id', authenticateToken, controller.deletePost);
-
-router.get('/search', authenticateToken, controller.searchPosts);
 
 module.exports = router;
