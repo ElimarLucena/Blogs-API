@@ -11,12 +11,7 @@ const createBlogPost = async (payload, userId) => {
 
   // inserindo dados na tabela BlogPost.
 
-  const { count } = await BlogPost.findAndCountAll(); // Source: https://sequelize.org/docs/v6/core-concepts/model-querying-finders/#findandcountall
-
-  const objCreatePost = {
-    id: count + 1, title, content, userId, published: new Date(), updated: new Date() };
-
-  const newCategory = await BlogPost.create(objCreatePost);
+  const newCategory = await BlogPost.create({ title, content, userId });
 
   // inserido dados na tabela PostCategories.
 
@@ -97,4 +92,5 @@ module.exports = {
   getAllBlogPosts,
   getBlogPostsById,
   updatePost,
+  deletePost,
 };
