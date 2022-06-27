@@ -63,15 +63,17 @@ const updatePost = async (req, res) => {
 const deletePost = async (req, res) => {
   const { id } = req.params;
 
+  const { id: userId } = req.user.data;
+
   try {
-    const post = await services.deletePost(id);
+    const post = await services.deletePost(id, userId);
 
     if (!post) {
-      return res.status(401).json({ message: 'Unauthorized user' });
+      return res.status(404).json({ message: 'Post does not exist' });
     }
 
-    if (post === 'Post does not exist') {
-      return res.status(404).json({ message: 'Post does not exist' });
+    if (post === 'Unauthorized user') {
+      return res.status(401).json({ message: 'Unauthorized user' });
     }
 
     return res.status(204).json();
