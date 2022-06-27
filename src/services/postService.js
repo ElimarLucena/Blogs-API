@@ -87,6 +87,22 @@ const updatePost = async (id, payload) => {
   }
 };
 
+const deletePost = async (id, userId) => {
+  try {
+    const post = await BlogPost.findByPk(id);
+    
+    if (!post) return false;
+
+    if (post.dataValues.userId !== userId) return 'Unauthorized user';
+
+    await BlogPost.destroy({ where: { id } });
+
+    return true;
+  } catch (error) {
+    return error;
+  }
+};
+
 module.exports = {
   createBlogPost,
   getAllBlogPosts,
