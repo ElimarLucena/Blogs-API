@@ -1,42 +1,27 @@
-const displayNameValidation = (displayName, next) => {
-  if (!displayName || displayName.length < 8) {
-    next({
-      statusCode: 400,
-      message: '"displayName" length must be at least 8 characters long',
-    });
-  }
-};
+const joi = require('joi');
 
-// Source: https://stackoverflow.com/questions/46155/how-can-i-validate-an-email-address-in-javascript
+const schemas = () => {
+  const schema = joi.object({
+    displayName: joi.string().min(8).required(),
+    email: joi.string().email().required(),
+    password: joi.string().min(6).required(),
+    image: joi.string(),
+  });
 
-const emailValidation = (email, next) => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-
-  if (!email || !email.match(emailRegex)) {
-    next({
-      statusCode: 400,
-      message: '"email" must be a valid email',
-    });
-  }
-};
-
-const passwordValidation = (password, next) => {
-  if (!password || password.length < 6) {
-    next({
-      statusCode: 400,
-      message: '"password" length must be at least 6 characters long',
-    });
-  }
+  return schema;
 };
 
 const userCreationValidation = (req, _res, next) => {
-  const { displayName, email, password } = req.body;
+  const schema = schemas();
 
-  displayNameValidation(displayName, next);
+  const { error } = schema.validate(req.body);
 
-  emailValidation(email, next);
-
-  passwordValidation(password, next);
+  if (error) {
+    next({
+      statusCode: 400,
+      message: error.details[0].message,
+    });
+  }
 
   next();
 };
