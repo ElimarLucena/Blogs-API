@@ -12,6 +12,9 @@ O **Blogs Api** é uma aplicação RESTful para a manipulação e consultas de p
 - [Sequelize](https://sequelize.org/)
 - [JWT](https://jwt.io/introduction)
 
+## Entity-Relationship Diagram
+![DER](./public/der.png)
+
 ## 🚀 How to run locally
 
 ```bash
