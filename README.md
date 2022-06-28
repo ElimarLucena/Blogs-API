@@ -13,6 +13,9 @@ O **Blogs Api** é uma aplicação RESTful para a manipulação e consultas de p
 - [JWT](https://jwt.io/introduction)
 
 ## Entity-Relationship Diagram
+
+*DER* utilizado para construção das tabelas através do ORM (Sequelize).
+
 ![DER](./public/der.png)
 
 ## 🚀 How to run locally
